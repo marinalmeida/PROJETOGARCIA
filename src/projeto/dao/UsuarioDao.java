@@ -7,21 +7,18 @@ public class UsuarioDao {
     private String nome;
     private int idade;
     private String email;
-    private int tipo_usuario;
     
-    public UsuarioDao(int id, String nome, int idade, String email, int tipo_usuario){
+    public UsuarioDao(int id, String nome, int idade, String email){
         this.id = id;
         this.nome = nome;
         this.idade = idade;
         this.email = email;
-        this.tipo_usuario = tipo_usuario;
     }
-    
-    public UsuarioDao(String nome, int idade, String email, int tipo_usuario){
+
+    public UsuarioDao(String nome, int idade, String email) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;
-        this.tipo_usuario = tipo_usuario;
     }
     
     public int getId() {
@@ -37,12 +34,16 @@ public class UsuarioDao {
     }
     
     public String getEmail() {
+        
+        if("".equals(this.email)){
+            return null;
+        }
+        
         return this.email;
     }
     
-    public int getTipoUsuario() {
-        return this.tipo_usuario;
+    @Override
+    public String toString() {
+        return "Id: " + id + ", Nome: " + nome + " Idade: " + idade + " Email: " + email;
     }
-    
-    
 }

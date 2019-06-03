@@ -11,10 +11,11 @@ import java.sql.SQLException;
 
 /**
  *
- * @author suporte
+ * @author team
  */
 public class ConexãoBD {
     
+    /* CONEXÃO COM BANCO DE DADOS*/
     public static Connection getConnection() {
         try
         {
@@ -25,9 +26,8 @@ public class ConexãoBD {
             return con;
         }
         catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-        
+            throw new RuntimeException(e);
+	}       
        
     }
 }

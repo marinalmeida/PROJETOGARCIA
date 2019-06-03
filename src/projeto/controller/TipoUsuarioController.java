@@ -5,8 +5,8 @@
  */
 package projeto.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import projeto.model.TipoUsuario;
 import projeto.dao.TipoUsuarioDao;
 /**
@@ -15,8 +15,7 @@ import projeto.dao.TipoUsuarioDao;
  */
 public class TipoUsuarioController {
     
-    private TipoUsuario model_tipo_usuario;
-    private TipoUsuarioDao data_tipo_usuario;
+    private final TipoUsuario model_tipo_usuario;
     
     public TipoUsuarioController(){
         model_tipo_usuario = new TipoUsuario();
@@ -25,9 +24,9 @@ public class TipoUsuarioController {
     public void registrar(TipoUsuarioDao tipo_usuario){           
         
         if(model_tipo_usuario.registrar(tipo_usuario)){
-            System.out.println("\n***** Tipo usuario adicionado com suscesso *****");
+            JOptionPane.showMessageDialog(null, "\n***** Tipo usuario adicionado com suscesso *****");
         }else{
-            System.out.println("\n***** Erro ao adicionar tipo usuário *****");
+            JOptionPane.showMessageDialog(null, "\n***** Erro ao adicionar tipo usuário *****");
         }
         
     }  
@@ -35,11 +34,22 @@ public class TipoUsuarioController {
     public void atualizar(TipoUsuarioDao tipo_usuario){       
         
         if(model_tipo_usuario.atualizar(tipo_usuario)){
-            System.out.println("\n***** Tipo usuario atualizado com suscesso *****");
+            JOptionPane.showMessageDialog(null, "\n***** Tipo usuario atualizado com suscesso *****");
         }else{
-            System.out.println("\n***** Erro ao atualizar tipo usuário *****");
+            JOptionPane.showMessageDialog(null, "\n***** Erro ao atualizar tipo usuário *****");
         }
         
+    } 
+    
+    public boolean existe(int id){       
+               
+        TipoUsuarioDao data = model_tipo_usuario.selecionar(id); 
+        
+        if(data != null){
+            return true;
+        }
+        
+        return false;
     }  
     
     public void selecionar(int id){       
@@ -47,36 +57,44 @@ public class TipoUsuarioController {
         TipoUsuarioDao data = model_tipo_usuario.selecionar(id);       
         
         if(data != null){
-            System.out.println("\n***** DADOS *****");
-            System.out.println(data.toString());    
+            JOptionPane.showMessageDialog(null, "\n***** DADOS *****\n"+data.toString());
         }else{
-            System.out.println("\n***** Erro ao selecionar tipo usuário *****"); 
+            JOptionPane.showMessageDialog(null, "\n***** Erro ao selecionar tipo usuário *****");
         }
         
         
     }  
     
-    public void listar(String nome){       
+    public String listar(String nome){       
                
-        ArrayList<TipoUsuarioDao> data = model_tipo_usuario.listar(nome);         
-        System.out.println("\n***** DADOS *****");
+        ArrayList<TipoUsuarioDao> data = model_tipo_usuario.listar(nome);       
+        String list = "\n***** DADOS *****\n";
         
         if(data != null){
             for(TipoUsuarioDao i : data) {
-                System.out.println(i.toString());
+                list += i.toString() + "\n";
             }  
+            
+            return list;
         }else{
-            System.out.println("\n***** Erro ao listar tipo usuário *****"); 
+            list = "\n***** Erro ao listar tipo usuário *****";
         }
+        
+        return list;
+    }
+    
+    public ArrayList<TipoUsuarioDao> listar(){       
+               
+        return model_tipo_usuario.listar(null);
               
     }  
     
     public void deletar(int id){           
         
         if(model_tipo_usuario.deletar(id)){
-            System.out.println("\n***** Tipo usuario deletado com suscesso *****");
+            JOptionPane.showMessageDialog(null, "\n***** Tipo usuario deletado com suscesso *****");
         }else{
-            System.out.println("\n***** Erro ao deletado tipo usuário *****");
+            JOptionPane.showMessageDialog(null, "\n***** Erro ao deletado tipo usuário *****");
         }
         
     }  

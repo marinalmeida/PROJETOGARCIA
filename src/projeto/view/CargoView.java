@@ -1,25 +1,21 @@
 
 package projeto.view;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import projeto.controller.CargoController;
-import projeto.controller.TipoUsuarioController;
 import projeto.dao.CargoDao;
-import projeto.dao.TipoUsuarioDao;
 
 public class CargoView {
     
     private CargoController data_cargo;
-    private static Scanner dados;
+    private String dados;
     
     public void adicionarCargo(){
         
         data_cargo = new CargoController();
         
-        dados = new Scanner(System.in);
-        System.out.println("\n***** Digite o cargo: *****");
-        String nome = dados.nextLine().toUpperCase();
-        
+        String nome = JOptionPane.showInputDialog("\n***** Digite o cargo: *****").toUpperCase();    
         CargoDao cargo = new CargoDao(nome);
         
         data_cargo.registrar(cargo);
@@ -28,16 +24,47 @@ public class CargoView {
     public void atualizarCargo(){
         data_cargo = new CargoController();
         
-        dados = new Scanner(System.in);
-        System.out.println("\n***** Digite a ID do cargo *****");
-        int id = dados.nextInt();
+        dados = JOptionPane.showInputDialog("\n***** Digite a ID do cargo *****");
+        int id = Integer.parseInt(dados); 
         
-        System.out.println("\n***** Digite o nome do cargo *****");
-        String nome = dados.next().toUpperCase();
+        String nome = JOptionPane.showInputDialog("\n***** Digite o nome do cargo *****").toUpperCase();  
         
         CargoDao cargo = new CargoDao(id, nome);
         
         data_cargo.atualizar(cargo);          
         
     }
+    
+    public void selecionarCargo() {
+        CargoDao data = null;
+        data_cargo = new CargoController();
+        
+        dados = JOptionPane.showInputDialog("\n***** Digite a ID do cargo *****");
+        int id = Integer.parseInt(dados); 
+            
+        data_cargo.selecionar(id);
+        
+    }
+    
+    public void listarCargo(){
+        data_cargo = new CargoController();
+        
+        String nome = JOptionPane.showInputDialog("\n***** Digite o nome do Cargo *****").toUpperCase();     
+           
+        String list = data_cargo.listar(nome); 
+        
+        JOptionPane.showMessageDialog(null, list);
+    }
+        
+    public void deletarCargo(){
+        ArrayList<CargoDao> data = null;
+        data_cargo = new CargoController();
+        
+        dados = JOptionPane.showInputDialog("\n***** Digite a ID do cargo *****");
+        int id = Integer.parseInt(dados); 
+                    
+        data_cargo.deletar(id);          
+        
+    }
+
 }
